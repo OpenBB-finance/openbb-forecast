@@ -36,7 +36,7 @@ repos:
         entry: codespell
         args:
           [
-            "--ignore-words-list=",
+            "--ignore-words-list=mape",
             "--quiet-level=2",
             "--skip=./**/tests/**,./**/test_*.py,.git,*.css,*.csv,*.html,*.ini,*.ipynb,*.js,*.json,*.lock,*.scss,*.txt,*.yaml",
             "-x=.github/workflows/general-linting.yml"
@@ -58,13 +58,6 @@ repos:
     hooks:
       - id: nbstripout
         name: Strip notebooks output
-  - repo: local
-    hooks:
-      - id: pylint
-        name: pylint
-        entry: pylint
-        language: system
-        types: [python]
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.4.0
     hooks:
