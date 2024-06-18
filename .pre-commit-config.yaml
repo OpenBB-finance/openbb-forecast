@@ -1,0 +1,78 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+        exclude_types: [css, markdown, text, svg]
+      - id: trailing-whitespace
+        exclude_types: [html, markdown, text]
+      - id: check-merge-conflict
+      - id: detect-private-key
+  - repo: https://github.com/psf/black
+    rev: 24.4.2
+    hooks:
+      - id: black
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: "v0.4.5"
+    hooks:
+      - id: ruff
+  - repo: https://github.com/pycqa/pydocstyle
+    rev: 6.3.0
+    hooks:
+      - id: pydocstyle
+        additional_dependencies: [tomli]
+        name: pydocstyle
+        entry: pydocstyle
+        language: python
+        types: [python]
+        files: '^(openbb_forecast/|integration/).*\.py$'
+        exclude: 'tests/.*\.py|openbb_forecast/test_.*\.py'
+        args: ["--config=ruff.toml"]
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.5
+    hooks:
+      - id: codespell
+        entry: codespell
+        args:
+          [
+            "--ignore-words-list=",
+            "--quiet-level=2",
+            "--skip=./**/tests/**,./**/test_*.py,.git,*.css,*.csv,*.html,*.ini,*.ipynb,*.js,*.json,*.lock,*.scss,*.txt,*.yaml",
+            "-x=.github/workflows/general-linting.yml"
+          ]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v1.6.1"
+    hooks:
+      - id: mypy
+        name: mypy
+        description: ""
+        entry: mypy
+        language: python
+        "types_or": [python, pyi]
+        args: ["--ignore-missing-imports", "--scripts-are-modules", "--check-untyped-defs"]
+        additional_dependencies: ["types-requests", "types-setuptools"]
+        require_serial: true
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.6.1
+    hooks:
+      - id: nbstripout
+        name: Strip notebooks output
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: pylint
+        language: system
+        types: [python]
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        args:
+          [
+            "--baseline",
+            ".secrets.baseline",
+            "--exclude-files",
+            "",
+          ]
