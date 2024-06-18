@@ -1,0 +1,13 @@
+./tests
+.git
+*.css
+*.csv
+*.html
+*.ini
+*.ipynb
+*.js
+*.json
+*.lock
+*.scss
+*.txt
+*.yaml
