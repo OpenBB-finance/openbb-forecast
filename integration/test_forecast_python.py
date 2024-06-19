@@ -166,11 +166,11 @@ def test_forecast_regression_exponential_smoothing(params, data_type, obb):
     ],
 )
 @pytest.mark.integration
-def test_forecast_statistical_quantile_anamoly_detection(params, data_type, obb):
+def test_forecast_statistical_quantile_anomaly_detection(params, data_type, obb):
     params = {p: v for p, v in params.items() if v}
     params["data"] = get_data(data_type)
 
-    output = obb.forecast.statistical.quantile_anamoly_detection(**params)
+    output = obb.forecast.statistical.quantile_anomaly_detection(**params)
     assert output
     assert isinstance(output, OBBject)
     assert any(output.results.model_dump().values())

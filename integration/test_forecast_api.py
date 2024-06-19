@@ -180,13 +180,13 @@ def test_forecast_regression_exponential_smoothing(params, data_type):
     ],
 )
 @pytest.mark.integration
-def test_forecast_statistical_quantile_anamoly_detection(params, data_type):
-    """Test Quantile Anamoly Detection."""
+def test_forecast_statistical_quantile_anomaly_detection(params, data_type):
+    """Test Quantile Anomaly Detection."""
     params = {p: v for p, v in params.items() if v}
     body = json.dumps(get_data(data_type))
 
     query_str = get_querystring(params, [])
-    url = f"http://0.0.0.0:8000/api/v1/forecast/statistical/quantile_anamoly_detection?{query_str}"
+    url = f"http://0.0.0.0:8000/api/v1/forecast/statistical/quantile_anomaly_detection?{query_str}"
     result = requests.post(url, headers=get_headers(), timeout=15, data=body)
     assert isinstance(result, requests.Response)
     assert result.status_code == 200

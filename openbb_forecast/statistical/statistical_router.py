@@ -28,13 +28,13 @@ router = Router(prefix="/statistical")
             description="Perform Quantile Anomaly Detection on Time Series Data.",
             code=[
                 "stock_data = obb.equity.price.historical(symbol='TSLA', start_date='2023-01-01', provider='fmp')",
-                "result =  obb.forecast.statistical.quantile_anamoly_detection(data=stock_data.results)",
+                "result =  obb.forecast.statistical.quantile_anomaly_detection(data=stock_data.results)",
             ],
         ),
         APIEx(parameters={"data": APIEx.mock_data("timeseries")}),
     ],
 )
-def quantile_anamoly_detection(
+def quantile_anomaly_detection(
     data: List[Data],
     target_column: str = "close",
     train_split: PositiveFloat = 0.6,
