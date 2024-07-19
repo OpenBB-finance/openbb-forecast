@@ -388,3 +388,67 @@ def test_forecast_torch_brnn(params, data_type, obb):
     assert output
     assert isinstance(output, OBBject)
     any(output.results.model_dump().values())
+
+
+@pytest.mark.parametrize(
+    "params, data_type",
+    [
+        (
+            {
+                "data": "",
+                "target_column": "close",
+                "n_predict": "5",
+                "train_split": "0.85",
+                "past_covariates": "",
+                "forecast_horizon": "5",
+                "input_chunk_length": "8",
+                "output_chunk_length": "5",
+                "num_stacks": "3",
+                "num_layers": "2",
+                "layer_widths": "512",
+                "dropout": "0.0",
+                "batch_size": "32",
+                "n_epochs": "1",
+                "learning_rate": "1e-3",
+                "model_save_name": "",
+                "force_reset": "",
+                "save_checkpoints": "",
+                "metric": "mape",
+            },
+            "stocks",
+        ),
+        (
+            {
+                "data": "",
+                "target_column": "close",
+                "n_predict": "5",
+                "train_split": "0.85",
+                "past_covariates": "",
+                "forecast_horizon": "5",
+                "input_chunk_length": "8",
+                "output_chunk_length": "5",
+                "num_stacks": "3",
+                "num_layers": "2",
+                "layer_widths": "512",
+                "dropout": "0.0",
+                "activation": "SELU",
+                "batch_size": "32",
+                "n_epochs": "1",
+                "learning_rate": "1e-3",
+                "model_save_name": "",
+                "force_reset": "",
+                "save_checkpoints": "",
+                "metric": "mape",
+            },
+            "crypto",
+        ),
+    ],
+)
+def test_forecast_torch_nhits(params, data_type, obb):
+    params = {p: v for p, v in params.items() if v}
+    params["data"] = get_data(data_type)
+
+    output = obb.forecast.torch.nhits(**params)
+    assert output
+    assert isinstance(output, OBBject)
+    any(output.results.model_dump().values())
