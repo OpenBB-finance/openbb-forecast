@@ -48,7 +48,26 @@ pip install git+https://github.com/OpenBB-finance/openbb-forecast.git
 
 ## Usage examples
 
-You can find examples in command docstrings. Example `help(obb.forecast.statistical.mstl)`.
+You can find more examples in command docstrings. Example `help(obb.forecast.statistical.mstl)`.
+
+### Quick start
+
+This minimal example loads historical equity prices and runs the `autoarima` forecasting model.
+
+```python
+from openbb import obb
+
+stock_data = obb.equity.price.historical(
+    symbol="AAPL",
+    start_date="2023-01-01",
+    provider="fmp",
+)
+
+output = obb.forecast.statistical.autoarima(data=stock_data.results)
+print(output.results.forecast)
+```
+
+The `forecast` field contains the predicted values returned by the model.
 
 ## References
 
